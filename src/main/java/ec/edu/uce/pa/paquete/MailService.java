@@ -6,7 +6,7 @@ import jakarta.inject.Singleton;
 
 //@ApplicationScoped //Delego el control al contenedor
 //@RequestScoped  //funciona solo en apps web
-@Singleton 
+//@Singleton 
 public class MailService {
 public void enviar(String correo, String asunto, String cuerpo) {
         System.out.println("Enviando correo a: " + correo);

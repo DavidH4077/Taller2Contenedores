@@ -1,18 +1,36 @@
 package ec.edu.uce.pa.paquete;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 
 //@ApplicationScoped //Delego el control al contenedor ArC
 //@RequestScoped  //funciona solo en apps web
-@Singleton 
+//@Singleton 
 public class PedidoService {
-    @Inject 
+    
+      /*@Inject
+     private MailService mailService;
+     */
     private MailService mailService;
 
-public void realizar(Pedido pedido) {
+    
+      //Inyeccion de dependencias por constructor
+      /*@Inject
+     public PedidoService(MailService mailService){
+     this.mailService=mailService;
+     } 
+      */
+     
+     
+
+    ///Inyeccion de dependencias por setter
+    @Inject
+    public void setMailService(MailService mailService) {
+        System.out.println("Se está inyectando el servicio de correo electronico pedido service");
+        this.mailService = mailService;
+    }
+    
+   
+    public void realizar(Pedido pedido) {
         System.out.println("Realizando pedido......");
         System.out.println("Pedido realizado para el cliente: " + pedido.getCliente());
         System.out.println("Producto:" + pedido.getProducto());
