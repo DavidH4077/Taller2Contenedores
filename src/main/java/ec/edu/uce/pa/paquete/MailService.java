@@ -1,18 +1,15 @@
 package ec.edu.uce.pa.paquete;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Singleton;
 
-//@ApplicationScoped //Delego el control al contenedor
-//@RequestScoped  //funciona solo en apps web
-@Singleton 
+@ApplicationScoped // Delego el control al contenedor
 public class MailService {
-public void enviar(String correo, String asunto, String cuerpo) {
-        System.out.println("Enviando correo a: " + correo);
-        System.out.println("Asunto: " + asunto);
-        System.out.println("Cuerpo: " + cuerpo);
-        System.out.println("Correo enviado con éxito");
+    public void enviarComprobante(String destinatario, String codigoParte, String descripcion, String marca,
+            int cantidad, double total) {
+        System.out.println("Enviando comprobante a: " + destinatario);
+        System.out.println("Repuesto: " + descripcion + " (" + marca + ")");
+        System.out.println("Codigo de parte: " + codigoParte);
+        System.out.println("Cantidad: " + cantidad + " unid. | Total pagado: $" + total);
     }
 
 }
