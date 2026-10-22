@@ -1,15 +1,20 @@
 package ec.edu.uce.pa.paquete;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.spi.CDI;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
-@ApplicationScoped 
+@ApplicationScoped
 public class PedidoService {
+    @Inject 
+    @Named("mail")
+    private MailService notificacionCorreo;
     
-    private MailService diferente;
-    public void realizar(Pedido pedido) {
-        MailService mailService=CDI.current().select(MailService.class).get();
+    @Inject 
+    @Named ("sms")
+    private SMSService notificacionSMS;
 
+    public void realizar(Pedido pedido) {
 
         System.out.println("Realizando pedido......");
         System.out.println("Pedido realizado para el cliente: " + pedido.getCliente());
@@ -18,12 +23,14 @@ public class PedidoService {
         System.out.println("Correo: " + pedido.getCorreo());
         System.out.println("Pedido realizado con éxito");
 
-        String asunto = "Confirmacion pedido";
         String cuerpo = "Estimado" + pedido.getCliente() + " su pedido de " +
                 pedido.getProducto() + " por un  total de $" + pedido.getTotal()
                 + "ha sido realizado con exito.";
-
-        mailService.enviar(pedido.getCorreo(), asunto, cuerpo);
+        // Notificacion Correo electronico
+        this.notificacionCorreo.enviar(pedido.getCorreo(), cuerpo);
+        
+        // Notificacion pedido SMS
+        this.notificacionSMS.enviar(pedido.getTelefono(), cuerpo);
     }
 
 }
