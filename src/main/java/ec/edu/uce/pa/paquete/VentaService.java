@@ -2,6 +2,7 @@ package ec.edu.uce.pa.paquete;
 
 import java.util.UUID;
 
+import ec.edu.uce.pa.paquete.interceptors.Auditoria;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -14,9 +15,7 @@ public class VentaService {
     @Named ("regular")
     private CalculadoraDescuento descuentoRegular;
 
-    @Inject 
-    Auditoria auditoria;
-
+    
     CalculadoraDescuento descuentoVIP;
     
     @Inject 
@@ -25,7 +24,8 @@ public class VentaService {
         this.descuentoVIP = descuentoVIP;
     }
 
-   public void procesarVenta(Venta venta) {
+    @Auditoria 
+   public String procesarVenta(Venta venta,String valor) {
 
         double descuento = 0;
         String porcentaje = "";
@@ -38,7 +38,9 @@ public class VentaService {
         }
 
         double total = venta.getMonto() - descuento;
+        venta.setTotal(total);
 
-        auditoria.registrar("|Venta: " + venta.getNumero()  + " " + venta.getHerramienta()  + " | Tipo: " + venta.getTipoCliente()+ " | Monto: $" + venta.getMonto()+ " | Descuento: " + porcentaje + " | Total: $" + total +"|");
+        System.out.println("|Venta: " + venta.getNumero()  +" | Nombre: "+ venta.getCliente() + " | Correo: " + venta.getCorreo() + " | Herramienta: " + venta.getHerramienta()  + " | Tipo: " + venta.getTipoCliente()+ " | Monto: $" + venta.getMonto()+ " | Descuento: " + porcentaje + " | Total: $" + total +"|");
+        return "Venta procesada correctamente";
     }
 }
