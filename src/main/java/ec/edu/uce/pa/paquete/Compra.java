@@ -6,6 +6,7 @@ public class Compra {
     private double total;
     private String correo;
     private String telefono;
+    
     public Compra(String cliente, String producto, double total, String correo, String telefono) {
         this.cliente = cliente;
         this.producto = producto;

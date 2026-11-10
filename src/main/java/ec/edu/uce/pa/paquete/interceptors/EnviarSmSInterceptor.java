@@ -13,8 +13,10 @@ public class EnviarSmSInterceptor {
 
     @AroundInvoke
     public Object interceptar(InvocationContext context) throws Exception {
+        Object resultado = context.proceed();
 
-        String resultado = ("|EnviarSMSInterceptor|El metodo envío un SMS");
+        System.out.println("|EnviarSMSInterceptor|El metodo envío un SMS");
         return resultado;
     }
+   
 }

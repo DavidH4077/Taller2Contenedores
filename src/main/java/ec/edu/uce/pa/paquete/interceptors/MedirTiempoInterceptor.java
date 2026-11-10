@@ -12,6 +12,7 @@ public class MedirTiempoInterceptor {
 
     @AroundInvoke
     public Object interceptar(InvocationContext context) throws Exception {
+
         Long init = System.currentTimeMillis();
         Object resultado = context.proceed();
         Long fin = System.currentTimeMillis();

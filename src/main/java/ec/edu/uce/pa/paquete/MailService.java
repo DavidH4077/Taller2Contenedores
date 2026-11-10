@@ -11,10 +11,10 @@ import jakarta.inject.Named;
 @Dependent //Su ambito es durante la inyeccion de dependencias es decir se crea una instancia y se comparte con los componentes que utilicen durante la inyeccion de dependencias 
 @Named("mail")
 public class MailService implements Notificacion {
+
     private Integer cantidad = 0;
     private String nombre;
 
-    
     @Override
     public void enviar(String destino, String mensaje) {
         System.out.println("Enviando correo a: " + destino);
@@ -31,13 +31,15 @@ public class MailService implements Notificacion {
 
     @Override
     public void setCantidad(Integer cantidad) {
-        this.cantidad=cantidad;
+        this.cantidad = cantidad;
     }
 
+    @Override
     public String getNombre() {
         return nombre;
     }
 
+    @Override
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

@@ -12,8 +12,9 @@ public class EnviarMailInterceptor {
 
     @AroundInvoke
     public Object interceptar(InvocationContext context) throws Exception {
+        Object resultado = context.proceed();
 
-        String resultado = ("|EnviarMailInterceptor|El metodo envío un Mail");
+        System.out.println("|EnviarMailInterceptor|El metodo envío un Mail");
         return resultado;
     }
 }
